@@ -5,6 +5,12 @@
       "email": "demo@demo",
       "password": "demo",
       "id": "1"
+    },
+    {
+      "name": "Никита",
+      "email": "8172535@gmail.com",
+      "password": "123123",
+      "id": "3natcv654lopuk7ab"
     }
   ],
   "accounts": [

@@ -1,8 +1,13 @@
+
+
+/**
+ * Основная функция для совершения запросов
+ * на сервер.
+ * */
 const createRequest = (options = {}) => {
   const xhr = new XMLHttpRequest;
   const formData = new FormData();
   xhr.responseType = 'json';
-
   if(options.method == 'GET') {
       options.url += '?';
       for(let key in options.data) {
@@ -28,4 +33,5 @@ const createRequest = (options = {}) => {
   xhr.onerror = () => { 
       options.callback(xhr.statusText, null);
   };
-};
+  
+  };
