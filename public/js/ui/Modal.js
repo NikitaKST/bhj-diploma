@@ -1,56 +1,62 @@
 /**
- * Класс Modal отвечает за
- * управление всплывающими окнами.
- * В первую очередь это открытие или
- * закрытие имеющихся окон
- * */
+ * Класс Modal отвечает за управление модальными окнами:
+ * - открытие/закрытие окон
+ */
 class Modal {
+
   /**
-   * Устанавливает текущий элемент в свойство element
-   * Регистрирует обработчики событий с помощью Modal.registerEvents()
-   * Если переданный элемент не существует,
-   * необходимо выкинуть ошибку.
-   * */
-  constructor(element){
+   * Устанавливает переданный элемент в свойство element
+   * Регистрирует обработчики событий через registerEvents
+   * Если элемент не передан, выбрасывает ошибку
+   */
+  constructor(element) {
+
     if (!element) {
-      throw new Error(`Error empty ${element} in class Modal`);
+      throw new Error('Error empty element in Modal'); 
     } else {
-        this.element = element;
-        this.registerEvents();
-    };
-  };
+      this.element = element;
+      this.registerEvents();
+    }
+
+  }
 
   /**
-   * При нажатии на элемент с data-dismiss="modal"
-   * должен закрыть текущее окно
-   * (с помощью метода Modal.onClose)
-   * */
+   * При клике на [data-dismiss="modal"] закрывает окно
+   */
   registerEvents() {
+
     const btnClose = this.element.querySelectorAll('button[data-dismiss="modal"]');
-    btnClose.forEach(elem => elem.addEventListener('click', (e) => {
+
+    btnClose.forEach(elem => {
+      elem.addEventListener('click', (e) => {
         this.onClose(e);
-    }));
-  };
+      });
+    });
+
+  }
 
   /**
-   * Срабатывает после нажатия на элементы, закрывающие окно.
-   * Закрывает текущее окно (Modal.close())
-   * */
+   * Закрывает окно при событии закрытия
+   */
   onClose(e) {
+
     e.preventDefault();
     this.close();
+
   }
+
   /**
-   * Открывает окно: устанавливает CSS-свойство display
-   * со значением «block»
-   * */
+   * Открывает окно
+   */
   open() {
     this.element.style.display = 'block';
   }
+
   /**
-   * Закрывает окно: удаляет CSS-свойство display
-   * */
+   * Закрывает окно  
+   */
   close(){
     this.element.style.display = 'none';
   }
+
 }

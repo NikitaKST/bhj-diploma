@@ -1,46 +1,60 @@
-
 /**
- * Класс CreateTransactionForm управляет формой
- * создания новой транзакции
- * */
+ * Класс CreateTransactionForm управляет формой создания новой транзакции 
+*/
 class CreateTransactionForm extends AsyncForm {
+
   /**
-   * Вызывает родительский конструктор и
-   * метод renderAccountsList
-   * */
+   * Вызывает конструктор родителя и метод renderAccountsList
+   */
   constructor(element) {
-    super(element)
+    super(element);
     this.renderAccountsList();
   }
 
   /**
-   * Получает список счетов с помощью Account.list
-   * Обновляет в форме всплывающего окна выпадающий список
-   * */
+   * Получает список счетов через Account.list
+   * Обновляет список счетов в форме 
+   */
   renderAccountsList() {
+
     Account.list({}, (err, response) => {
+    
       if (err === null && response.success) {
+      
         let items = '';
-        Array.from(response.data).forEach(item => {items+= `<option value="${item.id}">${item.name}</option>`});
+        response.data.forEach(item => {
+          items += `<option value="${item.id}">${item.name}</option>`
+        });
         this.element.querySelector('.accounts-select').innerHTML = items;
-      } 
-    })
+      
+      }
+
+    });
+  
   }
 
   /**
-   * Создаёт новую транзакцию (доход или расход)
-   * с помощью Transaction.create. По успешному результату
-   * вызывает App.update(), сбрасывает форму и закрывает окно,
-   * в котором находится форма
-   * */
+   * Создаёт новую транзакцию через Transaction.create
+   * При успехе:
+   * - вызывает App.update()
+   * - сбрасывает форму
+   * - закрывает окно
+   */
   onSubmit(data) {
+
     Transaction.create(data, (err, response) => {
-      if(err === null && response.success) {
+    
+      if (err === null && response.success) {
+      
         this.element.reset();
         App.getModal('newIncome').close();
-        App.getModal('newExpense').close();
+        App.getModal('newExpense').close();  
         App.update();
+      
       }
-    })
+
+    });
+
   }
+
 }
