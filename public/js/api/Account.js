@@ -12,5 +12,5 @@ class Account extends Entity {
     id,
     callback
     })
-  }
+  };
 };
